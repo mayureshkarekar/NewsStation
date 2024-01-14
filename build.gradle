@@ -5,6 +5,7 @@ buildscript {
         coroutines_version = "1.7.1"
         lifecycle_version = "2.6.2"
         nav_version = "2.7.6"
+        room_version = "2.6.1"
     }
 }
 
