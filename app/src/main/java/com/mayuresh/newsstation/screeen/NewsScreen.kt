@@ -18,10 +18,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.mayuresh.newsstation.CircularProgress
+import com.mayuresh.newsstation.NoDataView
+import com.mayuresh.newsstation.R
 import com.mayuresh.newsstation.model.News
 import com.mayuresh.newsstation.utils.Resource
 import com.mayuresh.newsstation.viewmodel.NewsViewModel
@@ -33,7 +37,7 @@ fun NewsScreen(onClick: (Long) -> Unit) {
 
     when (newsResource.value) {
         is Resource.Loading -> {
-            Text(text = "Loading")
+            CircularProgress()
         }
 
         is Resource.Success -> {
@@ -47,7 +51,7 @@ fun NewsScreen(onClick: (Long) -> Unit) {
         }
 
         is Resource.Error -> {
-            Text(text = "Error")
+            NoDataView(message = stringResource(id = (R.string.no_data_found)))
         }
     }
 }
@@ -97,6 +101,7 @@ fun NewsItem(news: News, onClick: (Long) -> Unit) {
                 top.linkTo(content.bottom)
                 end.linkTo(content.end)
             }
-            .padding(10.dp, 4.dp, 10.dp, 10.dp), text = "1 Jan, 2024") // TODO(Mayuresh): Parse date here.
+            .padding(10.dp, 4.dp, 10.dp, 10.dp),
+            text = "1 Jan, 2024") // TODO(Mayuresh): Parse date here.
     }
 }

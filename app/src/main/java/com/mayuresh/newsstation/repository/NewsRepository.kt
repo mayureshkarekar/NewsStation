@@ -19,6 +19,7 @@ class NewsRepository @Inject constructor(
     private val newsAPI: NewsAPI,
     private val newsDatabase: NewsDatabase
 ) {
+    // region news list
     private val _news = MutableStateFlow<Resource<List<News>>>(Resource.Loading())
     val news: StateFlow<Resource<List<News>>>
         get() = _news
@@ -35,8 +36,9 @@ class NewsRepository @Inject constructor(
                 val response = newsAPI.getNews()
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let {
-                        newsDatabase.getNewsDao().addNews(it.articles)
-                        _news.emit(Resource.Success(it.articles))
+                        val newsDao = newsDatabase.getNewsDao()
+                        newsDao.addNews(it.articles)
+                        _news.emit(Resource.Success(newsDao.getNews()))
                         Timber.d("Fetching news from server successful.")
                     }
                 } else {
@@ -60,4 +62,22 @@ class NewsRepository @Inject constructor(
             Timber.e(e, "Failed to fetch news ${e.message}.")
         }
     }
+    // endregion
+
+    // region news details
+    private val _newsDetail = MutableStateFlow<Resource<News>>(Resource.Loading())
+    val newsDetail: StateFlow<Resource<News>>
+        get() = _newsDetail
+
+    /**
+     * Returns the details of news for given id.
+     * @param newsId - ID of news for which details to be fetched.
+     **/
+    suspend fun getNewsDetail(newsId: Long) {
+        _newsDetail.emit(Resource.Loading())
+        val newsDetail = newsDatabase.getNewsDao().getNewsDetail(newsId)
+        _newsDetail.emit(Resource.Success(newsDetail))
+        Timber.d("Fetched news details.")
+    }
+    // endregion
 }

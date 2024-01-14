@@ -14,4 +14,7 @@ interface NewsDao {
 
     @Query("SELECT * FROM $NEWS_TABLE_NAME")
     suspend fun getNews(): List<News>
+
+    @Query("SELECT * FROM $NEWS_TABLE_NAME WHERE id = :newsId")
+    suspend fun getNewsDetail(newsId: Long): News
 }
