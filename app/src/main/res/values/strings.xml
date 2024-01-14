@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NewsStation</string>
     <string name="no_data_found">No data found.</string>
+    <string name="formatted_author_name">- %s</string>
 </resources>

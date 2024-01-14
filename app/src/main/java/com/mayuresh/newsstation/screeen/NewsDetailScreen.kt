@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -13,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -71,37 +73,42 @@ fun NewsDetail(news: News) {
             modifier = Modifier
                 .constrainAs(title) { top.linkTo(image.bottom) }
                 .fillMaxWidth()
-                .padding(10.dp, 2.dp),
+                .padding(10.dp, 8.dp),
+            style = MaterialTheme.typography.headlineSmall,
             text = news.title
         )
 
         Text(
             modifier = Modifier
-                .constrainAs(content) { top.linkTo(title.bottom) }
-                .fillMaxWidth()
+                .constrainAs(date) {
+                    top.linkTo(title.bottom)
+                    end.linkTo(content.end)
+                }
                 .padding(10.dp, 2.dp),
-            text = news.content
+            style = MaterialTheme.typography.bodySmall,
+            text = DateTimeUtils.convertDateTime(
+                news.publishedAt,
+                DateTimeUtils.SERVER_DATE_TIME_FORMAT,
+                DateTimeUtils.DAY_DATE_TIME_FORMAT
+            ).orEmpty()
+        )
+
+        Text(
+            modifier = Modifier
+                .constrainAs(content) { top.linkTo(date.bottom) }
+                .fillMaxWidth()
+                .padding(10.dp, 8.dp),
+            style = MaterialTheme.typography.bodyLarge,
+            text = news.content,
+            color = colorResource(id = R.color.text_color)
         )
 
         Text(
             modifier = Modifier
                 .constrainAs(author) { top.linkTo(content.bottom) }
                 .padding(10.dp, 2.dp),
-            text = news.author
-        )
-
-        Text(
-            modifier = Modifier
-                .constrainAs(date) {
-                    top.linkTo(content.bottom)
-                    end.linkTo(content.end)
-                }
-                .padding(10.dp, 2.dp),
-            text = DateTimeUtils.convertDateTime(
-                news.publishedAt,
-                DateTimeUtils.SERVER_DATE_TIME_FORMAT,
-                DateTimeUtils.DAY_DATE_TIME_FORMAT
-            ).orEmpty()
+            style = MaterialTheme.typography.bodySmall,
+            text = stringResource(id = R.string.formatted_author_name, news.author)
         )
     }
 }
