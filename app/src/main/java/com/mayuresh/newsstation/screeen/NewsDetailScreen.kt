@@ -22,6 +22,7 @@ import com.mayuresh.newsstation.CircularProgress
 import com.mayuresh.newsstation.NoDataView
 import com.mayuresh.newsstation.R
 import com.mayuresh.newsstation.model.News
+import com.mayuresh.newsstation.utils.DateTimeUtils
 import com.mayuresh.newsstation.utils.Resource
 import com.mayuresh.newsstation.viewmodel.NewsDetailViewModel
 
@@ -96,7 +97,11 @@ fun NewsDetail(news: News) {
                     end.linkTo(content.end)
                 }
                 .padding(10.dp, 2.dp),
-            text = news.publishedAt
+            text = DateTimeUtils.convertDateTime(
+                news.publishedAt,
+                DateTimeUtils.SERVER_DATE_TIME_FORMAT,
+                DateTimeUtils.DAY_DATE_TIME_FORMAT
+            ).orEmpty()
         )
     }
 }

@@ -27,6 +27,9 @@ import com.mayuresh.newsstation.CircularProgress
 import com.mayuresh.newsstation.NoDataView
 import com.mayuresh.newsstation.R
 import com.mayuresh.newsstation.model.News
+import com.mayuresh.newsstation.utils.DateTimeUtils
+import com.mayuresh.newsstation.utils.DateTimeUtils.DAY_DATE_TIME_FORMAT
+import com.mayuresh.newsstation.utils.DateTimeUtils.SERVER_DATE_TIME_FORMAT
 import com.mayuresh.newsstation.utils.Resource
 import com.mayuresh.newsstation.viewmodel.NewsViewModel
 
@@ -102,6 +105,8 @@ fun NewsItem(news: News, onClick: (Long) -> Unit) {
                 end.linkTo(content.end)
             }
             .padding(10.dp, 4.dp, 10.dp, 10.dp),
-            text = "1 Jan, 2024") // TODO(Mayuresh): Parse date here.
+            text = DateTimeUtils.convertDateTime(
+                news.publishedAt, SERVER_DATE_TIME_FORMAT, DAY_DATE_TIME_FORMAT
+            ).orEmpty())
     }
 }
