@@ -18,16 +18,16 @@ object DateTimeUtils {
      * @return The formatted date time string, or null if there's an error in parsing.
      */
     fun convertDateTime(inputDateTime: String, inputFormat: String, outputFormat: String): String? {
-        try {
+        return try {
             val inputDateFormat = SimpleDateFormat(inputFormat, Locale.getDefault())
             val outputDateFormat = SimpleDateFormat(outputFormat, Locale.getDefault())
 
             val date = inputDateFormat.parse(inputDateTime)
 
-            return date?.let { outputDateFormat.format(it) }
+            date?.let { outputDateFormat.format(it) }
         } catch (e: ParseException) {
             Timber.e("Failed to convert date time.")
-            return null
+            null
         }
     }
 }
