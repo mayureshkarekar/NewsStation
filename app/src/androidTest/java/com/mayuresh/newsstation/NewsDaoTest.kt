@@ -31,6 +31,7 @@ class NewsDaoTest {
      **/
     @Test
     fun insertNews_expectedSingleNews() = runBlocking {
+        // Adding news to the database.
         val news = News(
             id = 1,
             author = "Author Name",
@@ -41,9 +42,9 @@ class NewsDaoTest {
             url = "https://picsum.photos/300/150.jpg",
             urlToImage = "https://picsum.photos/300/150.jpg"
         )
-
         newsDao.addNews(listOf(news))
 
+        // Verifying the result.
         val savedNews = newsDao.getNews()
         assertEquals(1, savedNews.size)
     }
@@ -53,6 +54,7 @@ class NewsDaoTest {
      **/
     @Test
     fun insertNews_expectedMultipleNews() = runBlocking {
+        // Adding news to the database.
         val news = News(
             id = 1,
             author = "Author Name",
@@ -74,9 +76,9 @@ class NewsDaoTest {
             url = "https://picsum.photos/300/150.jpg",
             urlToImage = "https://picsum.photos/300/150.jpg"
         )
-
         newsDao.addNews(listOf(news, news2))
 
+        // Verifying the result.
         val savedNews = newsDao.getNews()
         assertEquals(2, savedNews.size)
     }
@@ -88,6 +90,7 @@ class NewsDaoTest {
      **/
     @Test
     fun selectNewsDetail_expectedSameNewsDetail() = runBlocking {
+        // Adding news to the database.
         val newsId: Long = 1
         val news = News(
             id = newsId,
@@ -99,9 +102,9 @@ class NewsDaoTest {
             url = "https://picsum.photos/300/150.jpg",
             urlToImage = "https://picsum.photos/300/150.jpg"
         )
-
         newsDao.addNews(listOf(news))
 
+        // Verifying the result.
         val savedNews = newsDao.getNewsDetail(newsId)
         assertEquals(newsId, savedNews.id)
     }
@@ -111,6 +114,7 @@ class NewsDaoTest {
      **/
     @Test
     fun selectNewsDetail_inputDifferentId_expectedNotEquals() = runBlocking {
+        // Adding news to the database.
         val newsId: Long = 1
         val news = News(
             id = newsId,
@@ -122,9 +126,9 @@ class NewsDaoTest {
             url = "https://picsum.photos/300/150.jpg",
             urlToImage = "https://picsum.photos/300/150.jpg"
         )
-
         newsDao.addNews(listOf(news))
 
+        // Verifying the result.
         val savedNews = newsDao.getNewsDetail(newsId)
         assertNotEquals(2, savedNews.id)
     }

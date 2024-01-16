@@ -14,9 +14,15 @@ class DateTimeUtilsTest(
     private val inputDate: String,
     private val expectedDate: String?
 ) {
+    /**
+     * Test case for validating date time conversion.
+     **/
     @Test
     fun convertDateTime() {
+        // Collecting the result.
         val convertedDate = convertDateTime(inputDate, SERVER_DATE_TIME_FORMAT, DAY_DATE_TIME_FORMAT)
+
+        // Validating the result.
         assertEquals(expectedDate, convertedDate)
     }
 
