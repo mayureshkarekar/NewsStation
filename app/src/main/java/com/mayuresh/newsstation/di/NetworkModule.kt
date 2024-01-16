@@ -1,6 +1,7 @@
 package com.mayuresh.newsstation.di
 
 import com.mayuresh.newsstation.BuildConfig
+import com.mayuresh.newsstation.network.ApiKeyInterceptor
 import com.mayuresh.newsstation.network.BASE_URL
 import com.mayuresh.newsstation.network.NewsAPI
 import dagger.Module
@@ -23,7 +24,11 @@ class NetworkModule {
     fun provideRetrofit(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = if (BuildConfig.DEBUG) BODY else NONE
-        val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+        val apiKeyInterceptor = ApiKeyInterceptor()
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(apiKeyInterceptor)
+            .build()
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
