@@ -1,9 +1,7 @@
-package com.mayuresh.newsstation
+package com.mayuresh.newsstation.database
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.mayuresh.newsstation.database.NewsDao
-import com.mayuresh.newsstation.database.NewsDatabase
 import com.mayuresh.newsstation.model.News
 import kotlinx.coroutines.runBlocking
 import org.junit.After

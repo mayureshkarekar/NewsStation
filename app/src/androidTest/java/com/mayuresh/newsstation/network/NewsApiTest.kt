@@ -1,8 +1,7 @@
-package com.mayuresh.newsstation.utils.network
+package com.mayuresh.newsstation.network
 
 import com.google.gson.JsonSyntaxException
-import com.mayuresh.newsstation.network.NewsAPI
-import com.mayuresh.newsstation.utils.utils.Utils
+import com.mayuresh.newsstation.utils.Utils
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
