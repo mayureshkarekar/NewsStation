@@ -1,7 +1,11 @@
 package com.mayuresh.newsstation.screeen
 
+import android.content.Intent
+import android.net.Uri
+import android.webkit.URLUtil
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,11 +15,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -57,7 +65,7 @@ fun NewsDetail(news: News) {
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        val (image, title, content, author, date) = createRefs()
+        val (image, title, content, author, date, openInBrowser) = createRefs()
 
         Image(
             modifier = Modifier
@@ -110,5 +118,29 @@ fun NewsDetail(news: News) {
             style = MaterialTheme.typography.bodySmall,
             text = stringResource(id = R.string.formatted_author_name, news.author)
         )
+
+        if (URLUtil.isHttpsUrl(news.url)) {
+            val context = LocalContext.current
+            val browserIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(news.url)) }
+
+            Text(
+                modifier = Modifier
+                    .constrainAs(openInBrowser) {
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .fillMaxWidth()
+                    .background(color = colorResource(id = R.color.purple_200))
+                    .clickable {
+                        if (browserIntent.resolveActivity(context.packageManager) != null) {
+                            context.startActivity(browserIntent)
+                        }
+                    }
+                    .padding(24.dp, 20.dp),
+                style = MaterialTheme.typography.titleSmall,
+                text = stringResource(id = R.string.tap_to_know_more),
+                textAlign = TextAlign.Center,
+                color = Color.White
+            )
+        }
     }
 }

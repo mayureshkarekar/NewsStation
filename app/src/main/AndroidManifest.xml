@@ -7,6 +7,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- endregion -->
 
+    <!-- region queries -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+    <!-- endregion -->
+
     <application
         android:name=".NewsApplication"
         android:allowBackup="false"
