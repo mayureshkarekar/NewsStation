@@ -31,7 +31,7 @@
 
         <!-- region activities -->
         <activity
-            android:name=".MainActivity"
+            android:name=".screeen.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.NewsStation">
             <intent-filter>

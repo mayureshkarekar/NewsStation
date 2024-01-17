@@ -1,4 +1,4 @@
-package com.mayuresh.newsstation
+package com.mayuresh.newsstation.screeen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,8 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.mayuresh.newsstation.screeen.NewsDetailScreen
-import com.mayuresh.newsstation.screeen.NewsScreen
+import com.mayuresh.newsstation.R
 import com.mayuresh.newsstation.ui.theme.NewsStationTheme
 import dagger.hilt.android.AndroidEntryPoint
 

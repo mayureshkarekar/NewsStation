@@ -28,8 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
-import com.mayuresh.newsstation.CircularProgress
-import com.mayuresh.newsstation.NoDataView
 import com.mayuresh.newsstation.R
 import com.mayuresh.newsstation.model.News
 import com.mayuresh.newsstation.utils.DateTimeUtils
