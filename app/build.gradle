@@ -22,6 +22,12 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        // Fetching the sensitive keys from secure.properties.
+        def secureProps = new Properties()
+        def securePropsFile = rootProject.file("secure.properties")
+        if (securePropsFile.exists()) secureProps.load(new FileInputStream(securePropsFile))
+        resValue "string", "rest_api_key", (secureProps.getProperty("REST_API_KEY") ?: "")
     }
 
     buildTypes {

@@ -16,7 +16,6 @@ interface NewsAPI {
 // region constants
 const val BASE_URL = "https://newsapi.org/v2/"
 const val API_KEY = "apiKey"
-const val API_KEY_VALUE = "a812f30e4aff41e49333ec669625d367"
 const val EVERYTHING = "everything"
 const val QUERY = "q"
 const val DEFAULT_QUERY = "bitcoin"

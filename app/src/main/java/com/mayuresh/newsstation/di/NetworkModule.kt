@@ -1,5 +1,6 @@
 package com.mayuresh.newsstation.di
 
+import android.content.Context
 import com.mayuresh.newsstation.BuildConfig
 import com.mayuresh.newsstation.network.ApiKeyInterceptor
 import com.mayuresh.newsstation.network.BASE_URL
@@ -7,6 +8,7 @@ import com.mayuresh.newsstation.network.NewsAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,10 +23,10 @@ import javax.inject.Singleton
 class NetworkModule {
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(@ApplicationContext context: Context): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = if (BuildConfig.DEBUG) BODY else NONE
-        val apiKeyInterceptor = ApiKeyInterceptor()
+        val apiKeyInterceptor = ApiKeyInterceptor(context)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(apiKeyInterceptor)
